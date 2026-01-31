@@ -1,19 +1,14 @@
 import Hero from "@/src/components/hero/Hero";
-import About from "@/src/components/about/About";
-import TechStack from "@/src/components/tech/TechStack";
-import Projects from "@/src/components/projects/Projects";
-import Experience from "@/src/components/experience/Experience";
-import Contact from "@/src/components/contact/Contact";
+import Experience from "@/src/components/sections/Experience";
+import Projects from "@/src/components/sections/Projects";
+import ThreeColumnLayout from "@/src/components/layout/ThreeColumnLayout";
 
 export default function Home() {
   return (
-    <main>
+    <ThreeColumnLayout>
       <Hero />
-      <About />
-      <TechStack />
-      <Projects />
       <Experience />
-      <Contact />
-    </main>
+      <Projects />
+    </ThreeColumnLayout>
   );
 }
