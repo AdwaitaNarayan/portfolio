@@ -1,98 +1,88 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Github, FileText } from "lucide-react";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
 
 export default function Hero() {
-  const handleScrollToProjects = () => {
-    const element = document.querySelector("#projects");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+    const [mounted, setMounted] = useState(false);
+    const [stars, setStars] = useState<{ left: string; top: string; duration: number }[]>([]);
 
-  return (
-    <motion.section
-      className="flex min-h-[90vh] items-center justify-center bg-zinc-950"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <div className="mx-auto max-w-6xl px-6 py-24 text-center">
-        <motion.h1
-          variants={itemVariants}
-          className="mb-6 text-5xl font-bold tracking-tight text-zinc-50 md:text-6xl lg:text-7xl"
+    useEffect(() => {
+        setMounted(true);
+        // Pre-calculate stars once on mount to avoid re-randomizing on every render
+        const newStars = [...Array(30)].map(() => ({
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            duration: 2 + Math.random() * 3,
+        }));
+        setStars(newStars);
+    }, []);
+
+    return (
+        <section
+            className="relative flex flex-col items-center justify-center h-screen w-screen left-1/2 -ml-[50vw] overflow-hidden text-center border-b border-white/[0.03]"
         >
-          Adwaita Narayan Behera
-        </motion.h1>
-        <motion.h2
-          variants={itemVariants}
-          className="mb-6 text-2xl font-medium text-zinc-300 md:text-3xl"
-        >
-          GenAI Engineer
-        </motion.h2>
-        <motion.p
-          variants={itemVariants}
-          className="mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-zinc-400"
-        >
-          Building and deploying AI systems that solve real-world problems
-        </motion.p>
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <button
-            onClick={handleScrollToProjects}
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-3 text-sm font-medium text-zinc-50 transition-colors hover:border-zinc-600 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-950"
-            aria-label="Scroll to projects section"
-          >
-            View Projects
-          </button>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-3 text-sm font-medium text-zinc-50 transition-colors hover:border-zinc-600 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-950"
-            aria-label="View resume"
-          >
-            <FileText size={18} aria-hidden="true" />
-            Resume
-          </a>
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-3 text-sm font-medium text-zinc-50 transition-colors hover:border-zinc-600 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-600 focus:ring-offset-2 focus:ring-offset-zinc-950"
-            aria-label="Visit GitHub profile"
-          >
-            <Github size={18} aria-hidden="true" />
-            GitHub
-          </a>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
+
+            {/* Background Content Grid (Subtle Client-side Stars) */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                {mounted && stars.map((star, i) => (
+                    <motion.div
+                        key={i}
+                        className="absolute w-[1px] h-[1px] bg-white rounded-full opacity-20"
+                        style={{
+                            left: star.left,
+                            top: star.top,
+                        }}
+                        animate={{
+                            opacity: [0.1, 0.4, 0.1],
+                            scale: [1, 1.2, 1],
+                        }}
+                        transition={{
+                            duration: star.duration,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                        }}
+                    />
+                ))}
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center justify-center space-y-0 w-full pt-10">
+                {/* Floating Hero Image with Neon Hover Effect */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative w-[300px] h-[400px] md:w-[500px] md:h-[650px] mx-auto group transition-all duration-500 rounded-full hover:shadow-[0_0_50px_rgba(6,182,212,0.4),0_0_100px_rgba(6,182,212,0.2)]"
+                >
+                    {/* Dynamic Background Glow */}
+                    <div className="absolute inset-0 bg-cyan-500/5 blur-[120px] rounded-full scale-100 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all duration-700" />
+
+                    <Image
+                        src="/adwaita_face.svg"
+                        alt="Adwaita Narayan Behera"
+                        fill
+                        className="object-contain object-top scale-115 md:scale-[1.5] transition-transform duration-700 group-hover:scale-[1.55]"
+                        priority
+                    />
+                </motion.div>
+
+                {/* Name and Title - Perfectly Integrated */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="space-y-4 px-4 -mt-16 md:-mt-24 relative z-20"
+                >
+                    <h1 className="text-4xl md:text-7xl font-serif text-white leading-tight">
+                        Adwaita Narayan Behera
+                    </h1>
+                    <h2 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.6em] text-zinc-500 font-medium whitespace-nowrap">
+                        Artificial Intelligence & Machine Learning Enthusiast
+                    </h2>
+                </motion.div>
+            </div>
+
+        </section>
+    );
 }
