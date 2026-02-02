@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -53,141 +53,159 @@ const experiences = [
     },
 ];
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.1
-        }
-    },
-};
-
-const itemVariants = {
-    hidden: {
-        opacity: 0,
-        y: 15
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1]
-        }
-    },
-};
-
 export default function Experience() {
-    const sectionRef = useRef(null);
-    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    // Animate Card 1 (Left to Center, then out Left)
+    const xLeft = useTransform(
+        scrollYProgress,
+        [0, 0.12, 0.88, 1],
+        ["-100%", "0%", "0%", "-100%"]
+    );
+    const opacityLeft = useTransform(
+        scrollYProgress,
+        [0, 0.08, 0.92, 1],
+        [0, 1, 1, 0]
+    );
+
+    // Animate Card 2 (Right to Center, then out Right)
+    const xRight = useTransform(
+        scrollYProgress,
+        [0, 0.12, 0.88, 1],
+        ["100%", "0%", "0%", "100%"]
+    );
+    const opacityRight = useTransform(
+        scrollYProgress,
+        [0, 0.08, 0.92, 1],
+        [0, 1, 1, 0]
+    );
+
+    // Header animations - tightened for responsiveness
+    const titleX = useTransform(scrollYProgress, [0, 0.12], [-40, 0]);
+    const titleOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+    const statsX = useTransform(scrollYProgress, [0, 0.12], [40, 0]);
+    const statsOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
     return (
-        <section id="experience" className="min-h-screen flex flex-col justify-center py-20" ref={sectionRef}>
-            {/* Header and Stats Row */}
-            <div className="flex flex-col md:flex-row items-baseline justify-between mb-8 gap-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex items-center gap-4 self-start"
-                >
-                    <h2 className="text-6xl md:text-8xl font-bold text-white tracking-tight">
-                        Experience
-                    </h2>
-                </motion.div>
+        <div ref={containerRef} className="relative h-[200vh] w-full">
+            <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+                <div className="w-full">
+                    {/* Header and Stats Row */}
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8 w-full">
+                        <motion.div
+                            style={{ x: titleX, opacity: titleOpacity }}
+                            className="flex items-center gap-4 self-start"
+                        >
+                            <h2 className="text-6xl md:text-9xl font-bold text-white tracking-tighter">
+                                Experience
+                            </h2>
+                        </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex gap-2"
-                >
-                    {stats.map((stat, i) => (
-                        <div key={stat.label} className="bg-white p-3 w-28 h-16 flex flex-col items-center justify-center border border-zinc-200">
-                            <span className="text-xl font-serif text-black leading-none">{stat.value}</span>
-                            <span className="text-[9px] text-zinc-400 mt-1 uppercase tracking-tight">{stat.label}</span>
-                        </div>
-                    ))}
-                </motion.div>
-            </div>
-
-            {/* Pillar Cards */}
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl"
-            >
-                {experiences.map((exp, idx) => (
-                    <motion.div
-                        key={exp.company}
-                        variants={itemVariants}
-                        whileHover={{
-                            y: -1.5,
-                            boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.08)"
-                        }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="bg-white p-6 flex flex-col h-full shadow-sm cursor-default"
-                    >
-                        {/* Header: Logo, Name, Role */}
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className={`w-12 h-12 relative flex-shrink-0 flex items-center justify-center ${exp.logoColor} text-white font-bold text-xl rounded-sm overflow-hidden`}>
-                                <div className="absolute inset-0 flex items-center justify-center translate-z-0">
-                                    {exp.logoLetter}
+                        <motion.div
+                            style={{ x: statsX, opacity: statsOpacity }}
+                            className="flex gap-2"
+                        >
+                            {stats.map((stat) => (
+                                <div key={stat.label} className="bg-white p-4 w-32 h-20 flex flex-col items-center justify-center border border-zinc-200">
+                                    <span className="text-xl font-serif text-black leading-none">{stat.value}</span>
+                                    <span className="text-[9px] text-zinc-400 mt-2 uppercase tracking-widest font-bold">{stat.label}</span>
                                 </div>
-                                <Image
-                                    src={exp.logo}
-                                    alt={exp.company}
-                                    fill
-                                    className="object-contain opacity-0 group-hover:opacity-100 transition-opacity"
-                                    onError={(e) => {
-                                        // Hide image if it doesn't exist
-                                        (e.target as any).style.display = 'none';
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-black border-b border-black w-fit leading-tight mb-1">
-                                    {exp.company}
-                                </h3>
-                                <div className="text-sm text-zinc-400 font-bold">{exp.role}</div>
-                            </div>
-                        </div>
-
-                        {/* Date and Duration */}
-                        <div className="text-xs text-zinc-400 font-bold mb-8 uppercase tracking-tight">
-                            {exp.period} <span className="mx-1">&ndash;</span> {exp.duration}
-                        </div>
-
-                        {/* Bulleted Description */}
-                        <ul className="space-y-4 mb-8">
-                            {exp.description.map((point, i) => (
-                                <li key={i} className="flex gap-3">
-                                    <div className="w-1.5 h-1.5 bg-black mt-1.5 flex-shrink-0" />
-                                    <p className="text-[13px] text-zinc-700 font-medium leading-relaxed">
-                                        {point}
-                                    </p>
-                                </li>
                             ))}
-                        </ul>
+                        </motion.div>
+                    </div>
 
-                        {/* Key Achievements */}
-                        <div className="">
-                            <div className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mb-4">Key Achievements</div>
-                            <ul className="space-y-2">
-                                {exp.achievements.map((ach, i) => (
-                                    <li key={i} className="flex gap-2 text-[12px] text-zinc-500 font-bold">
-                                        <span className="text-zinc-300">-</span>
-                                        <span>{ach}</span>
+                    {/* Pillar Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+                        {/* Card 1 */}
+                        <motion.div
+                            style={{ x: xLeft, opacity: opacityLeft }}
+                            className="bg-white p-8 flex flex-col h-full shadow-lg border-l-4 border-black"
+                        >
+                            <div className="flex items-center gap-5 mb-8">
+                                <div className={`w-14 h-14 relative flex-shrink-0 flex items-center justify-center ${experiences[0].logoColor} text-white font-bold text-2xl rounded-sm`}>
+                                    {experiences[0].logoLetter}
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-black text-black border-b-2 border-black w-fit leading-tight mb-1 uppercase">
+                                        {experiences[0].company}
+                                    </h3>
+                                    <div className="text-[12px] text-zinc-400 font-black uppercase tracking-wider">{experiences[0].role}</div>
+                                </div>
+                            </div>
+                            <div className="text-[11px] text-zinc-400 font-black mb-8 uppercase tracking-widest bg-zinc-50 py-1 px-2 w-fit">
+                                {experiences[0].period} — {experiences[0].duration}
+                            </div>
+                            <ul className="space-y-4 mb-10">
+                                {experiences[0].description.map((point, i) => (
+                                    <li key={i} className="flex gap-3">
+                                        <div className="w-1.5 h-1.5 bg-black mt-1.5 flex-shrink-0" />
+                                        <p className="text-[14px] text-zinc-800 font-semibold leading-relaxed">
+                                            {point}
+                                        </p>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    </motion.div>
-                ))}
-            </motion.div>
-        </section>
+                            <div className="mt-auto border-t border-zinc-100 pt-6">
+                                <div className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mb-4">Key Achievements</div>
+                                <ul className="space-y-2">
+                                    {experiences[0].achievements.map((ach, i) => (
+                                        <li key={i} className="flex gap-2 text-[12px] text-zinc-500 font-bold">
+                                            <span className="text-zinc-300">-</span>
+                                            <span>{ach}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </motion.div>
+
+                        {/* Card 2 */}
+                        <motion.div
+                            style={{ x: xRight, opacity: opacityRight }}
+                            className="bg-white p-8 flex flex-col h-full shadow-lg border-l-4 border-black"
+                        >
+                            <div className="flex items-center gap-5 mb-8">
+                                <div className={`w-14 h-14 relative flex-shrink-0 flex items-center justify-center ${experiences[1].logoColor} text-white font-bold text-2xl rounded-sm`}>
+                                    {experiences[1].logoLetter}
+                                </div>
+                                <div>
+                                    <h3 className="text-2xl font-black text-black border-b-2 border-black w-fit leading-tight mb-1 uppercase">
+                                        {experiences[1].company}
+                                    </h3>
+                                    <div className="text-[12px] text-zinc-400 font-black uppercase tracking-wider">{experiences[1].role}</div>
+                                </div>
+                            </div>
+                            <div className="text-[11px] text-zinc-400 font-black mb-8 uppercase tracking-widest bg-zinc-50 py-1 px-2 w-fit">
+                                {experiences[1].period} — {experiences[1].duration}
+                            </div>
+                            <ul className="space-y-4 mb-10">
+                                {experiences[1].description.map((point, i) => (
+                                    <li key={i} className="flex gap-3">
+                                        <div className="w-1.5 h-1.5 bg-black mt-1.5 flex-shrink-0" />
+                                        <p className="text-[14px] text-zinc-800 font-semibold leading-relaxed">
+                                            {point}
+                                        </p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="mt-auto border-t border-zinc-100 pt-6">
+                                <div className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mb-4">Key Achievements</div>
+                                <ul className="space-y-2">
+                                    {experiences[1].achievements.map((ach, i) => (
+                                        <li key={i} className="flex gap-2 text-[12px] text-zinc-500 font-bold">
+                                            <span className="text-zinc-300">-</span>
+                                            <span>{ach}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
