@@ -232,21 +232,21 @@ export default function Experience() {
 
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
-    // Card entrance/exit (scroll-driven)
-    const xLeft = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], ["-100%", "0%", "0%", "-100%"]);
-    const opacityLeft = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [0, 1, 1, 0]);
-    const xRight = useTransform(scrollYProgress, [0, 0.12, 0.88, 1], ["100%", "0%", "0%", "100%"]);
-    const opacityRight = useTransform(scrollYProgress, [0, 0.08, 0.92, 1], [0, 1, 1, 0]);
+    // Card entrance/exit (scroll-driven) — tighter window to reduce blank-space gap
+    const xLeft = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], ["-100%", "0%", "0%", "-100%"]);
+    const opacityLeft = useTransform(scrollYProgress, [0, 0.14, 0.86, 1], [0, 1, 1, 0]);
+    const xRight = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], ["100%", "0%", "0%", "100%"]);
+    const opacityRight = useTransform(scrollYProgress, [0, 0.14, 0.86, 1], [0, 1, 1, 0]);
 
     // Header fade
-    const titleOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-    const statsOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+    const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+    const statsOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
     // Timeline line grows as cards settle
-    const timelineScaleY = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
+    const timelineScaleY = useTransform(scrollYProgress, [0.15, 0.5], [0, 1]);
 
     return (
-        <div ref={containerRef} className="relative h-[150vh] w-full">
+        <div ref={containerRef} className="relative h-[120vh] w-full">
             <div className="sticky top-0 h-screen flex flex-col justify-center" style={{ overflowX: "clip" }}>
                 <div className="w-full">
 
