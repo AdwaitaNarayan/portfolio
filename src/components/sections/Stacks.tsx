@@ -8,30 +8,36 @@ import { Search, Sparkles, X, ChevronRight, Info } from "lucide-react";
 const CATEGORIES = ["All", "Frontend", "Backend", "AI/ML", "DevOps"];
 
 const STACKS = [
-    { name: "React", category: "Frontend", color: "rgba(6, 182, 212, 0.5)", desc: "Building interactive UIs with component-based architecture.", level: "Advanced" },
-    { name: "Next.js", category: "Frontend", color: "rgba(255, 255, 255, 0.5)", desc: "The React framework for production-grade applications.", level: "Expert" },
-    { name: "TypeScript", category: "Frontend", color: "rgba(59, 130, 246, 0.5)", desc: "Strongly typed programming for reliable web apps.", level: "Advanced" },
-    { name: "Tailwind CSS", category: "Frontend", color: "rgba(6, 182, 212, 0.4)", desc: "Utility-first CSS framework for rapid UI development.", level: "Expert" },
-    { name: "JavaScript", category: "Frontend", color: "rgba(234, 179, 8, 0.5)", desc: "The engine of the modern web experience.", level: "Expert" },
-    { name: "HTML5 & CSS3", category: "Frontend", color: "rgba(239, 68, 68, 0.5)", desc: "Foundational technologies of web structure and style.", level: "Expert" },
+    // Programming Languages → Backend category
+    { name: "Python", category: "Backend", color: "rgba(249, 115, 22, 0.5)", desc: "Primary language for backend, AI, automation, and data pipelines.", level: "Expert" },
+    { name: "SQL", category: "Backend", color: "rgba(255, 255, 255, 0.8)", desc: "Declarative language for relational database queries and management.", level: "Advanced" },
+    { name: "HTML5 & CSS3", category: "Frontend", color: "rgba(239, 68, 68, 0.5)", desc: "Foundational technologies of web structure and style.", level: "Intermediate" },
+    { name: "JavaScript", category: "Frontend", color: "rgba(234, 179, 8, 0.5)", desc: "Basic scripting for web interactivity and front-end logic.", level: "Beginner" },
 
-    { name: "Python", category: "Backend", color: "rgba(249, 115, 22, 0.5)", desc: "High-level language for backend, AI, and automation.", level: "Expert" },
-    { name: "FastAPI", category: "Backend", color: "rgba(16, 185, 129, 0.5)", desc: "Modern, high-performance web framework for APIs.", level: "Advanced" },
-    { name: "PostgreSQL", category: "Backend", color: "rgba(51, 153, 204, 0.5)", desc: "Open-source relational database for scalability.", level: "Advanced" },
+    // Frameworks & Libraries
+    { name: "Flask", category: "Backend", color: "rgba(100, 116, 139, 0.5)", desc: "Lightweight WSGI web application framework for Python.", level: "Advanced" },
+    { name: "FastAPI", category: "Backend", color: "rgba(16, 185, 129, 0.5)", desc: "Modern, high-performance web framework for building REST APIs.", level: "Advanced" },
     { name: "SQLAlchemy", category: "Backend", color: "rgba(215, 71, 15, 0.5)", desc: "SQL toolkit and Object-Relational Mapper for Python.", level: "Advanced" },
-    { name: "Flask", category: "Backend", color: "rgba(0, 0, 0, 0.5)", desc: "Lightweight WSGI web application framework.", level: "Intermediate" },
-    { name: "SQL", category: "Backend", color: "rgba(255, 255, 255, 0.8)", desc: "Declarative language for database queries.", level: "Advanced" },
-
-    { name: "LLMs", category: "AI/ML", color: "rgba(255, 255, 255, 0.9)", desc: "Large Language Models engineering and optimization.", level: "Expert" },
-    { name: "RAG Systems", category: "AI/ML", color: "rgba(168, 85, 247, 0.5)", desc: "Retrieval-Augmented Generation for specialized AI context.", level: "Advanced" },
-    { name: "LangChain", category: "AI/ML", color: "rgba(24, 24, 27, 0.8)", desc: "Framework for building context-aware LLM applications.", level: "Advanced" },
-    { name: "PyTorch", category: "AI/ML", color: "rgba(238, 76, 44, 0.5)", desc: "Machine learning library for deep neural networks.", level: "Intermediate" },
+    { name: "Pandas", category: "AI/ML", color: "rgba(99, 102, 241, 0.5)", desc: "Data manipulation and analysis library for Python.", level: "Advanced" },
+    { name: "NumPy", category: "AI/ML", color: "rgba(6, 182, 212, 0.5)", desc: "Fundamental package for scientific computing in Python.", level: "Advanced" },
+    { name: "scikit-learn", category: "AI/ML", color: "rgba(247, 147, 30, 0.5)", desc: "Predictive data analysis and classical ML algorithms in Python.", level: "Advanced" },
     { name: "TensorFlow", category: "AI/ML", color: "rgba(255, 111, 0, 0.5)", desc: "End-to-end open source platform for machine learning.", level: "Intermediate" },
-    { name: "scikit-learn", category: "AI/ML", color: "rgba(247, 147, 30, 0.5)", desc: "Predictive data analysis using Python.", level: "Advanced" },
-    { name: "OCR", category: "AI/ML", color: "rgba(6, 182, 212, 0.6)", desc: "Optical Character Recognition for document digitization.", level: "Expert" },
+    { name: "Keras", category: "AI/ML", color: "rgba(220, 38, 38, 0.5)", desc: "High-level neural networks API, running on top of TensorFlow.", level: "Intermediate" },
+    { name: "LangChain", category: "AI/ML", color: "rgba(24, 24, 27, 0.8)", desc: "Framework for building context-aware LLM applications.", level: "Advanced" },
 
-    { name: "Docker", category: "DevOps", color: "rgba(36, 150, 237, 0.5)", desc: "Containerization for consistent environment deployment.", level: "Intermediate" },
-    { name: "Linux", category: "DevOps", color: "rgba(255, 211, 0, 0.5)", desc: "Open-source operating system for reliable servers.", level: "Advanced" },
+    // Databases
+    { name: "PostgreSQL", category: "Backend", color: "rgba(51, 153, 204, 0.5)", desc: "Open-source relational database for scalability and reliability.", level: "Advanced" },
+    { name: "MySQL", category: "Backend", color: "rgba(0, 117, 143, 0.5)", desc: "Popular open-source relational database management system.", level: "Intermediate" },
+
+    // AI/ML Specialisations
+    { name: "LLMs", category: "AI/ML", color: "rgba(255, 255, 255, 0.9)", desc: "Large Language Models engineering, fine-tuning and deployment.", level: "Advanced" },
+    { name: "RAG Systems", category: "AI/ML", color: "rgba(168, 85, 247, 0.5)", desc: "Retrieval-Augmented Generation for specialized AI context.", level: "Advanced" },
+    { name: "OCR", category: "AI/ML", color: "rgba(6, 182, 212, 0.6)", desc: "Optical Character Recognition using PaddleOCR and PyTesseract.", level: "Expert" },
+
+    // DevOps / Tools
+    { name: "Git & GitHub", category: "DevOps", color: "rgba(239, 68, 68, 0.4)", desc: "Version control and collaborative code management.", level: "Advanced" },
+    { name: "Jupyter Notebook", category: "DevOps", color: "rgba(234, 179, 8, 0.5)", desc: "Interactive computing environment for data science and ML.", level: "Advanced" },
+    { name: "VS Code", category: "DevOps", color: "rgba(59, 130, 246, 0.5)", desc: "Feature-rich code editor used as the primary development environment.", level: "Expert" },
 ];
 
 // ─── Sub-Components ───────────────────────────────────────────────────────────

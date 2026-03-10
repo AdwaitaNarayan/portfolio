@@ -24,24 +24,37 @@ export type Project = {
 
 const projects: Project[] = [
     {
-        title: "SolviqAI Assessment Platform",
+        title: "AI-Driven Assessment Automation Platform",
         description:
-            "Full-stack AI hiring platform with automated interview rounds, coding evaluation, and LLM-powered feedback. Built with Next.js, FastAPI, and LangChain — serving 500+ active users with real-time proctored assessment capabilities.",
-        tech: ["Next.js", "FastAPI", "PostgreSQL", "LangChain"],
+            "Developed AI-driven assessment automation tools for hiring workflows including question generation, evaluation, and scoring engines. Built backend APIs using Python, FastAPI, and PostgreSQL to support candidate assessments, playlists, job roles, and reporting modules. Implemented ATS resume scoring, domain classification, and personalized job recommendation pipelines.",
+        tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Node.js", "React.js", "REST APIs", "ATS Systems", "Domain Classification"],
         github: null,
         demo: null,
-        image: "/projects/solviq.jpg",
+        image: null,
         featured: true,
-        date: "2025-05-01",
-        type: "Full-Stack",
-        stats: { views: 1250, likes: 450, forks: 12 },
+        date: "2025-11-15",
+        type: "AI/ML",
+        stats: { views: 2450, likes: 580, forks: 42 },
+    },
+    {
+        title: "PDF Data Extraction & RAG Systems",
+        description:
+            "Designed Python-based automation pipelines for structured data extraction from PDFs. Implemented OCR and API-based systems to handle large-scale text processing. Built Retrieval-Augmented Generation (RAG) systems to enable interactive chat with PDF documents. Fine-tuned LLMs for domain-specific question answering and text classification.",
+        tech: ["Python", "PaddleOCR", "PyTesseract", "PyMuPDF", "LangChain", "Hugging Face Transformers", "Ollama", "TensorFlow", "PyTorch", "Pandas", "FAISS"],
+        github: null,
+        demo: null,
+        image: null,
+        featured: true,
+        date: "2025-10-15",
+        type: "AI/ML",
+        stats: { views: 1820, likes: 410, forks: 28 },
     },
     {
         title: "Odia Alphanumeric Recognition",
         description:
-            "End-to-end image classification app to recognize Odia alphanumeric characters. Integrated pre-trained CNN models (ResNet, EfficientNet) with custom fine-tuning, deployed as a REST API using Flask. (Jan 2025 – Apr 2025)",
-        tech: ["Python", "Flask", "TensorFlow", "CNN"],
-        github: "https://github.com/adwaita",
+            "Built an end-to-end image classification app to recognize Odia alphanumeric characters. Integrated pre-trained CNN models (ResNet, EfficientNet) with custom fine-tuning, and deployed the model as a REST API using Flask. (Jan 2025 – Apr 2025)",
+        tech: ["Python", "Flask", "TensorFlow", "SVM", "REST API"],
+        github: "https://github.com/AdwaitaNarayan",
         demo: null,
         image: "/projects/odia.jpg",
         featured: true,
@@ -52,32 +65,19 @@ const projects: Project[] = [
     {
         title: "Stock Price Prediction",
         description:
-            "Time-series forecasting model using LSTM integrated into a Flask dashboard. Designed data pipelines, preprocessing scripts, automated visualization modules, and performed feature extraction with TensorFlow and Keras. (Oct 2024 – Dec 2024)",
-        tech: ["Python", "TensorFlow", "Keras", "Flask"],
-        github: "https://github.com/adwaita",
+            "Developed a time-series forecasting model using LSTM and integrated it into a Flask dashboard. Performed data preprocessing, feature extraction, and model training using TensorFlow and Keras. (Oct 2024 – Dec 2024)",
+        tech: ["Python", "TensorFlow", "Keras", "Flask", "Pandas", "Matplotlib"],
+        github: "https://github.com/AdwaitaNarayan",
         demo: null,
         image: "/projects/stock.jpg",
-        featured: false,
+        featured: true,
         date: "2024-12-20",
         type: "AI/ML",
-        stats: { views: 1540, likes: 320, forks: 24 },
-    },
-    {
-        title: "PDF Data Extraction Tool",
-        description:
-            "Python tool to extract, parse, and convert PDF content into structured JSON/Excel files using OCR and NLP for document understanding — demonstrating backend logic and modular coding. (June 2025 – July 2025)",
-        tech: ["Python", "PyMuPDF", "PaddleOCR", "Pandas"],
-        github: "https://github.com/adwaita",
-        demo: null,
-        image: "/projects/ocr.jpg",
-        featured: false,
-        date: "2025-07-10",
-        type: "Automation",
-        stats: { views: 640, likes: 95, forks: 8 },
+        stats: { views: 640, likes: 120, forks: 8 },
     },
 ];
 
-const FILTER_TYPES = ["All", "Full-Stack", "AI/ML", "Automation"];
+const FILTER_TYPES = ["All", "AI/ML"];
 
 export default function Projects() {
     const ref = useRef(null);
