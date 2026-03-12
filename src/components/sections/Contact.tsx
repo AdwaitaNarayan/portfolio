@@ -13,8 +13,8 @@ import {
 // ─── Constants & Data ────────────────────────────────────────────────────────
 const ROLES = "AI/ML Engineer • Full-Stack Developer • Tech Enthusiast";
 const SOCIALS = [
-    { label: "GitHub", icon: Github, href: "https://github.com/adwaita", color: "hover:text-white" },
-    { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/adwaita", color: "hover:text-cyan-400" },
+    { label: "GitHub", icon: Github, href: "https://github.com/AdwaitaNarayan", color: "hover:text-white" },
+    { label: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/in/adwaita-narayan-behera-147a46275/", color: "hover:text-cyan-400" },
     { label: "Twitter", icon: Twitter, href: "https://twitter.com/adwaita", color: "hover:text-blue-400" },
 ];
 
@@ -28,10 +28,38 @@ const SUBJECTS = [
 ];
 
 const FAQS = [
-    { q: "Do you offer consultation for AI integration?", a: "Yes, I provide strategic consultation for businesses looking to integrate Large Language Models (LLMs), RAG systems, and custom AI agents into their existing tech stacks." },
-    { q: "What is your typical project turnaround time?", a: "Turnaround varies by complexity. MVP-ready AI applications usually take 3–6 weeks, while complex full-stack systems may range from 2–4 months." },
-    { q: "Are you available for freelance or contract work?", a: "I'm currently open to high-impact collaborations and specialized contract roles in AI engineering and Full-stack development." },
-    { q: "Do you build custom RAG pipelines?", a: "Absolutely. I specialize in building highly optimized Retrieval-Augmented Generation pipelines using LangChain, Vector Databases (Pinecone/Weaviate), and various LLM providers." }
+    {
+        q: "Can you design end-to-end AI assessment and automation systems for our hiring workflows?",
+        a: "Yes, absolutely. I have direct experience developing AI-driven assessment automation tools at Hirekarma, where I built comprehensive hiring workflow solutions including question generation engines, evaluation systems, and automated scoring pipelines. I've designed backend APIs using Python and FastAPI to support candidate assessments, job role matching, and reporting modules. I also implemented ATS resume scoring systems, domain classification algorithms, and personalized job recommendation pipelines — exactly what hiring teams need for scalable recruitment."
+    },
+    {
+        q: "What's your expertise in building RAG systems and LLM applications?",
+        a: "I specialize in building production-grade Retrieval-Augmented Generation (RAG) systems that enable intelligent document interaction. At AAANS Services, I designed and implemented RAG architectures using LangChain, Vector Databases, and multiple LLM providers. I've fine-tuned LLMs for domain-specific question answering and text classification, and built OCR-based PDF extraction pipelines using PaddleOCR and PyTesseract. This combination of RAG, LLM fine-tuning, and document processing is ideal for enterprise AI solutions."
+    },
+    {
+        q: "What backend stack can you work with for scalable applications?",
+        a: "I'm proficient with modern backend frameworks and databases. My primary stack includes Python with FastAPI and Flask, PostgreSQL and MySQL for relational databases, and SQLAlchemy for ORM. I've built RESTful APIs that handle large-scale text processing, structured data extraction, and real-time assessment reporting. My experience spans from API design to database optimization, and I'm comfortable working with both synchronous and async architectures."
+    },
+    {
+        q: "How quickly can you deliver AI solutions?",
+        a: "I've successfully delivered multiple AI projects within structured timelines. I built an end-to-end image classification application for Odia character recognition in 4 months, and a time-series forecasting model with a Flask dashboard in 2–3 months. The timeline depends on complexity, but my experience with automation pipelines, API development, and ML model integration allows me to move fast without compromising quality. For assessment systems and RAG pipelines, I typically work in agile 2-week sprints."
+    },
+    {
+        q: "Can you handle complex data extraction and document processing at scale?",
+        a: "Yes. I've built Python-based automation pipelines specifically designed for large-scale structured data extraction from PDFs. I implemented OCR systems and API-based text processing that significantly reduced manual data entry. I've worked with PaddleOCR for complex document structures, PyMuPDF for PDF parsing, and FAISS for vector search in RAG systems — meaning I can handle everything from parsing unstructured documents to building searchable knowledge bases."
+    },
+    {
+        q: "Are you available for full-time, freelance, or contract AI development roles?",
+        a: "I'm currently available for opportunities as an AI/ML Engineer or AI Developer. I have experience in both full-time positions (currently at Hirekarma as AI Developer) and contract work (AAANS internship). I'm flexible with engagement models and can scale my involvement based on project needs — whether it's building complete AI solutions, implementing specific modules, or consulting on architecture."
+    },
+    {
+        q: "What AI/ML tools and frameworks do you use?",
+        a: "My ML stack includes TensorFlow, Keras, scikit-learn, and PyTorch for model development. For LLMs and generative AI, I use LangChain, Hugging Face Transformers, and Ollama. Data processing is handled with Pandas and NumPy, while FAISS manages vector operations for RAG systems. On the infrastructure side, I'm comfortable with Git/GitHub and have experience with deployment frameworks. This comprehensive toolkit allows me to handle everything from classical ML to cutting-edge generative AI."
+    },
+    {
+        q: "Can you lead the full development lifecycle from design to deployment?",
+        a: "Absolutely. My experience spans the entire spectrum — from initial system design and architecture planning to implementation, testing, and deployment. At Hirekarma, I designed the assessment architecture, built the backend APIs, and implemented reporting modules. At AAANS, I owned the entire RAG pipeline design and LLM fine-tuning process. I follow best practices in code versioning (Git), testing, and documentation, ensuring solutions are production-ready and maintainable."
+    },
 ];
 
 const AI_SYMBOLS = ["🤖", "∑", "∫", "λ", "π", "∆"];
@@ -353,21 +381,21 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase text-zinc-600 mb-1">Email</p>
-                                        <p className="text-xl font-bold text-white tracking-tight">adwaitana@gmail.com</p>
+                                        <p className="text-xl font-bold text-white tracking-tight">adwdaitanarayan8@gmail.com</p>
                                     </div>
                                 </div>
-                                <button onClick={() => handleCopy("adwaitana@gmail.com")} className="p-3 text-zinc-600 hover:text-cyan-400 transition-colors">
+                                <button onClick={() => handleCopy("adwdaitanarayan8@gmail.com")} className="p-3 text-zinc-600 hover:text-cyan-400 transition-colors">
                                     <Copy size={18} />
                                 </button>
                             </div>
 
-                            <a href="tel:+917008139369" className="flex items-center gap-5 p-6 bg-zinc-950/40 border border-white/5 rounded-3xl hover:border-purple-500/30 transition-all group/call">
+                            <a href="tel:+917735374305" className="flex items-center gap-5 p-6 bg-zinc-950/40 border border-white/5 rounded-3xl hover:border-purple-500/30 transition-all group/call">
                                 <div className="p-4 bg-purple-500/10 rounded-2xl group-hover/call:scale-110 transition-transform">
                                     <Phone size={24} className="text-purple-400" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-black uppercase text-zinc-600 mb-1">Phone</p>
-                                    <p className="text-xl font-bold text-white tracking-tight">+91 7008139369</p>
+                                    <p className="text-xl font-bold text-white tracking-tight">+91 7735374305</p>
                                 </div>
                             </a>
 
@@ -377,7 +405,7 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-black uppercase text-zinc-600 mb-1">Location</p>
-                                    <p className="text-xl font-bold text-white tracking-tight">Bhubaneswar, India</p>
+                                    <p className="text-xl font-bold text-white tracking-tight">Angul, Odisha, India</p>
                                 </div>
                                 <div className="ml-auto flex items-center gap-2 bg-green-500/10 px-3 py-1 rounded-full">
                                     <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />

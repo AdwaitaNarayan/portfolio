@@ -1,15 +1,15 @@
 "use client";
 
 import {
-    motion, useScroll, useTransform, useInView, AnimatePresence, MotionValue,
+    motion, useScroll, useTransform, useInView, AnimatePresence,
 } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const STATS = [
-    { label: "Experience", target: 6, suffix: "+" },
+    { label: "Experience", target: 9, suffix: "mo" },
     { label: "Companies", target: 2, suffix: "" },
-    { label: "Projects", target: 12, suffix: "+" },
+    { label: "Projects", target: 2, suffix: "+" },
 ];
 
 const experiences = [
@@ -19,16 +19,15 @@ const experiences = [
         role: "AI Developer",
         period: "Nov 2025 – Present", duration: "Current Role",
         description: [
-            "Engineered AI-driven assessment automation tools to streamline hiring workflows",
-            "Architected scalable backend APIs using FastAPI, SQLAlchemy, and PostgreSQL",
-            "Implemented ATS resume scoring systems and domain classification models",
-            "Designed personalized job recommendation pipelines for candidate matching",
+            "Developing AI-driven assessment automation tools for hiring workflows including question generation, evaluation, and scoring engines",
+            "Built backend APIs using Python, FastAPI, SQLAlchemy, and PostgreSQL to support candidate assessments, playlists, job roles, and reporting modules",
+            "Implemented ATS resume scoring, domain classification, and personalized job recommendation pipelines",
         ],
         achievements: [
-            "Automated core hiring assessment evaluations",
-            "Optimized database performance for large-scale candidate metadata",
+            "Automated core hiring assessment evaluations end-to-end",
+            "Built scalable reporting modules for candidate assessment data",
         ],
-        tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Node.js", "React.js"],
+        tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Node.js", "React.js", "Pydantic", "REST APIs"],
     },
     {
         company: "AAANS Services Pvt. Ltd.",
@@ -36,16 +35,16 @@ const experiences = [
         role: "AI/ML Engineer Intern",
         period: "July 2025 – Oct 2025", duration: "4 months",
         description: [
-            "Developed Python automation pipelines for structured PDF data extraction",
-            "Implemented high-throughput OCR pipelines for large-scale text processing",
-            "Designed Retrieval-Augmented Generation (RAG) systems for interactive querying",
-            "Fine-tuned LLMs for domain-specific question answering and classification",
+            "Designed Python-based automation pipelines for structured data extraction from PDFs",
+            "Implemented OCR and API-based systems to handle large-scale text processing tasks",
+            "Designed and implemented Retrieval-Augmented Generation (RAG) systems to enable interactive chat with PDFs",
+            "Fine-tuned Large Language Models (LLMs) for domain-specific question answering and text classification tasks",
         ],
         achievements: [
-            "Significantly reduced manual data entry via automated extraction",
-            "Improved OCR accuracy for complex document structures",
+            "Significantly reduced manual data entry via automated PDF extraction",
+            "Improved OCR accuracy for complex document structures using PaddleOCR",
         ],
-        tech: ["Python", "PaddleOCR", "PyTesseract", "LangChain", "HuggingFace", "FAISS"],
+        tech: ["Python", "PaddleOCR", "PyTesseract", "PyMuPDF", "LangChain", "HuggingFace", "Ollama", "TensorFlow", "PyTorch", "FAISS"],
     },
 ];
 
@@ -103,11 +102,9 @@ function RoleTag({ role }: { role: string }) {
 
 // ─── Experience Card with hover gradient + glow border ────────────────────────
 function ExpCard({
-    exp, scrollX, scrollOpacity, side,
+    exp, side,
 }: {
     exp: typeof experiences[0];
-    scrollX: MotionValue<string>;
-    scrollOpacity: MotionValue<number>;
     side: "left" | "right";
 }) {
     const [grad, setGrad] = useState({ x: 50, y: 50 });
@@ -119,7 +116,12 @@ function ExpCard({
     }, []);
 
     return (
-        <motion.div style={{ x: scrollX, opacity: scrollOpacity }}>
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: side === "right" ? 0.12 : 0 }}
+        >
             <motion.div
                 whileHover={{
                     scale: 1.03,
@@ -232,21 +234,12 @@ export default function Experience() {
 
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
-    // Card entrance/exit (scroll-driven) — tighter window to reduce blank-space gap
-    const xLeft = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], ["-100%", "0%", "0%", "-100%"]);
-    const opacityLeft = useTransform(scrollYProgress, [0, 0.14, 0.86, 1], [0, 1, 1, 0]);
-    const xRight = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], ["100%", "0%", "0%", "100%"]);
-    const opacityRight = useTransform(scrollYProgress, [0, 0.14, 0.86, 1], [0, 1, 1, 0]);
-
-    // Header fade
-    const titleOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-    const statsOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
     // Timeline line grows as cards settle
     const timelineScaleY = useTransform(scrollYProgress, [0.15, 0.5], [0, 1]);
 
     return (
-        <div ref={containerRef} className="relative h-[120vh] w-full">
+        <div ref={containerRef} className="relative h-[100vh] w-full">
             <div className="sticky top-0 h-screen flex flex-col justify-center" style={{ overflowX: "clip" }}>
                 <div className="w-full">
 
@@ -254,53 +247,37 @@ export default function Experience() {
                     <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8 w-full">
 
                         {/* Heading with animated underline */}
-                        <motion.div style={{ opacity: titleOpacity }} className="self-start">
+                        <div className="self-start">
                             <div className="relative inline-block">
                                 <h2 className="text-6xl md:text-9xl font-bold text-white tracking-tighter">
                                     Experience
                                 </h2>
-                                <motion.div
+                                <div
                                     className="absolute bottom-1 left-0 right-0 h-[3px]"
                                     style={{
                                         background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.9) 40%, rgba(255,255,255,0.7) 70%, transparent)",
-                                        transformOrigin: "left center",
                                     }}
-                                    initial={{ scaleX: 0 }}
-                                    animate={{ scaleX: 1 }}
-                                    transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                                 />
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Stats with CountUp + pulse */}
-                        <motion.div ref={statsRef} style={{ opacity: statsOpacity }} className="flex gap-2">
-                            {STATS.map((stat, i) => (
+                        <div ref={statsRef} className="flex gap-2">
+                            {STATS.map((stat) => (
                                 <motion.div
                                     key={stat.label}
                                     className="bg-white p-4 w-32 h-20 flex flex-col items-center justify-center border border-zinc-200"
-                                    animate={statsInView ? {
-                                        boxShadow: [
-                                            "0 0 0px rgba(6,182,212,0)",
-                                            "0 0 18px rgba(6,182,212,0.5)",
-                                            "0 0 0px rgba(6,182,212,0)",
-                                        ],
-                                    } : {}}
-                                    transition={{
-                                        delay: 0.3 + i * 0.18,
-                                        duration: 1.2,
-                                        ease: "easeOut",
-                                    }}
                                     whileHover={{ scale: 1.08, boxShadow: "0 0 20px rgba(6,182,212,0.4)" }}
                                 >
                                     <span className="text-xl font-serif text-black leading-none">
-                                        <CountUp target={stat.target} suffix={stat.suffix} trigger={statsInView} />
+                                        {stat.target}{stat.suffix}
                                     </span>
                                     <span className="text-[9px] text-zinc-400 mt-2 uppercase tracking-widest font-bold">
                                         {stat.label}
                                     </span>
                                 </motion.div>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
 
                     {/* ── Cards Grid + Timeline ─────────────────────────────── */}
@@ -333,16 +310,12 @@ export default function Experience() {
                         {/* Card 1 */}
                         <ExpCard
                             exp={experiences[0]}
-                            scrollX={xLeft}
-                            scrollOpacity={opacityLeft}
                             side="left"
                         />
 
                         {/* Card 2 */}
                         <ExpCard
                             exp={experiences[1]}
-                            scrollX={xRight}
-                            scrollOpacity={opacityRight}
                             side="right"
                         />
                     </div>

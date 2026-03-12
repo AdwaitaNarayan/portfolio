@@ -7,15 +7,15 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           <div className="flex flex-col items-center gap-2 md:items-start">
             <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-              Your Name
+              Adwaita Narayan Behera
             </h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              GenAI | ML Engineer
+              AI Developer | AI/ML Engineer
             </p>
           </div>
           <div className="flex items-center gap-6">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/AdwaitaNarayan"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
@@ -24,7 +24,7 @@ export default function Footer() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/adwaita-narayan-behera-147a46275/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
